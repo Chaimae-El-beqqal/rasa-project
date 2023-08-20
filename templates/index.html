@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rasa Chatbot Training Data Upload</title>
+</head>
+<body>
+    <h1>Rasa Chatbot Training Data Upload</h1>
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+        <label for="nlu_file">NLU File:</label>
+        <input type="file" id="nlu_file" name="files[]" accept=".csv"><br><br>
+        <label for="stories_file">Stories File:</label>
+        <input type="file" id="stories_file" name="files[]" accept=".csv"><br><br>
+        <label for="rules_file">Rules File:</label>
+        <input type="file" id="rules_file" name="files[]" accept=".csv"><br><br>
+        <input type="submit" value="Upload and Generate Rasa Training Data">
+    </form>
+    <form action="/generate_domain" method="post" enctype="multipart/form-data">
+        <h2>Generate Domain File</h2>
+        <label for="expiration_time">Session Expiration Time:</label>
+        <input type="number" id="expiration_time" name="expiration_time" required>
+        <input type="file" name="files[]" multiple accept=".csv">
+        <button type="submit">Generate Domain</button>
+    </form>
+
+    <form action="/model/train" method="post">
+        <h2>Train Rasa Model</h2>
+        <button type="submit">Train Model</button>
+    </form>
+<div id="rasa-chat-widget" data-websocket-url="ws://localhost:5005"></div>
+<script src="https://unpkg.com/@rasahq/rasa-chat" type="application/javascript"></script><script src="https://cdn.jsdelivr.net/npm/rasa-webchat@1.0.0/dist/index.js"></script>
+    <script>
+        WebChat.default.init({
+            selector: "#rasa-chat-widget",
+            initPayload: "/get_started",  // Initial payload for the Rasa chatbot
+            socketUrl: "http://localhost:5005",
+            customData: { "language": "en" },  // Customize as needed
+            // Other configuration options here
+        });
+    </script>
+</body>
+</html>

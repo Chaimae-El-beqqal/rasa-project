@@ -1,0 +1,14 @@
+version: '3.1'
+intents:
+- greet
+- goodbye
+
+responses:
+  utter_greet:
+  - text: "wa 3alikom salam"
+  utter_goodbye:
+  - text: "bslama 3lik"
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

@@ -1,0 +1,2 @@
+﻿rule,steps
+Say goodbye anytime the user says goodbye,"goodbye,utter_goodbye"

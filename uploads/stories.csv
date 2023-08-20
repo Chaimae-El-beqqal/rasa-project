@@ -1,0 +1,2 @@
+﻿story,steps
+happy path,"greet,utter_greet,goodbye,utter_goodbye"
