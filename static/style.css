@@ -1,0 +1,161 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,300&display=swap')
+/* Apply some basic styling to all elements */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+}
+body{
+      font-family: 'Roboto', sans-serif;
+      background-color: #f7f7f7
+}
+
+.wrapper{
+margin: 100px 120px;
+    padding:30px auto;
+}
+.container{
+    display:flex;
+
+    justify-content: space-between
+}
+form{
+  display:flex;
+  flex-direction: column;
+  background-color:#ffffff;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border-radius:10px;
+  padding:20px;
+  height:max-content
+  }
+.btns{
+    width:270px;
+    padding:10px;
+    font-size:1rem;
+    margin:5px auto;
+  border:none;
+  border-radius:10px;
+  background-color:#6c96f5;
+  font-weight:550;
+  cursor:pointer
+
+    }
+input {
+  margin-bottom: 10px ;
+  width:250px;
+  font-size:.9rem;
+  padding:10px;
+  border:none;
+  background-color:#f7f7f7;
+  border-radius: 5px
+
+}
+
+label{
+
+  font-size: 1rem;
+  font-weight: 600;
+  color:#545454;
+  margin-bottom:10px;
+  }
+input::file-selector-button {
+  font-weight: bold;
+  color: #25365c;
+  padding: 0.5em;
+  border: none;
+  border-radius: 3px;
+  background-color:#e6e6e6;
+  cursor:pointer
+}
+input::file-selector-button::focus, button::focus{
+
+}
+
+
+.nb{
+   background-color: #96b7ff;
+   padding:10px;
+   color:#fff;
+   border-radius:50%;
+   width:30px;
+   height:30px;
+   font-weight:700;
+   margin:10px auto;
+   text-align:center;
+   font-size:1.3rem
+}
+.response{
+    display:flex;
+
+    justify-content: space-between;
+    font-size:1rem ;
+
+}
+.response p{
+
+ background-color:#d4ffa6;
+ padding:10px;
+ color:#68c702;
+ border-radius: 5px;}
+
+
+#loader{
+   display: none;
+}
+
+ .loader-demo-box {
+  border-radius: 0.25rem !important;
+}
+
+.loader-demo-box {
+  width: 100%;
+  height: 200px;
+}
+
+.jumping-dots-loader {
+  width: 100px;
+  height: 100px;
+  border-radius: 100%;
+  position: relative;
+  margin: 0 auto;
+}
+
+.jumping-dots-loader span {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  background-color: #3db8ff;
+  margin: 35px 5px;
+}
+
+.jumping-dots-loader span:nth-child(1) {
+  animation: bounce 1s ease-in-out infinite;
+}
+
+.jumping-dots-loader span:nth-child(2) {
+  animation: bounce 1s ease-in-out 0.33s infinite;
+}
+
+.jumping-dots-loader span:nth-child(3) {
+  animation: bounce 1s ease-in-out 0.66s infinite;
+}
+
+@keyframes bounce {
+  0%,
+  75%,
+  100% {
+    -webkit-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -o-transform: translateY(0);
+    transform: translateY(0);
+  }
+
+  25% {
+    -webkit-transform: translateY(-20px);
+    -ms-transform: translateY(-20px);
+    -o-transform: translateY(-20px);
+    transform: translateY(-20px);
+  }
+}

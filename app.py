@@ -26,8 +26,10 @@ def upload():
         file.save(os.path.join('uploads', filename))
 
     generate_rasa_training_data()
-
-    return "Files uploaded and Rasa training data generated successfully!"
+    response = {"message": "Files uploaded and Rasa training data generated successfully!"}
+    return jsonify(response)
+    # data_res = "Files uploaded and Rasa training data generated successfully!"
+    # return render_template('index.html',data_res)
 
 
 def save_to_file(data, filename):
@@ -125,8 +127,8 @@ def generate_domain():
 
     generate_domain_file(uploaded_files, nlu_data, expiration_time)
 
-    return "Domain file generated successfully!"
-
+    response = {"message": "Domain file generated successfully!"}
+    return jsonify(response)
 
 def get_nlu_data():
     nlu_intents = []
@@ -189,10 +191,14 @@ def train_rasa_model():
         # Run the Rasa training command
         subprocess.run(['rasa', 'train'])
 
-        return jsonify({"message": "Model trained successfully"}), 200
+        response = {"message": "Model trained successfully"}
+        return jsonify(response)
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        err_res = str(e) +" 500"
+        # return render_template('index.html',err_res )
+
 
 
 if __name__ == '__main__':
+    app.static_folder = 'static'
     app.run(host='0.0.0.0', port=5000)
