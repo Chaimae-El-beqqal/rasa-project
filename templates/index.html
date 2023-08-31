@@ -38,7 +38,10 @@
         <h2> Train Rasa Model :</h2>
         <button type="submit" class="btns">Train Model</button>
     </form>
-
+    <form id="api">
+        <textarea id="content" name="content" rows="4" cols="50"></textarea>
+        <button type="submit">call Api</button>
+    </form>
     <div id="rasa-chat-widget" data-websocket-url="ws://localhost:5005"></div>
     </div>
     <div id="response">
@@ -52,6 +55,40 @@
     <script>
 
           let loader = document.getElementById("loader")
+         // api call =======================
+const url = 'http://localhost:5005/model/train';
+
+const form = document.getElementById('api'); // form's ID
+
+form.addEventListener('submit', async function(event) {
+  event.preventDefault();
+
+  const textarea = document.getElementById('content'); // textarea's ID
+  const trainingData = textarea.value;
+
+  const requestOptions = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/yaml'
+    },
+    body: trainingData
+  };
+
+  try {
+    const response = await fetch(url, requestOptions);
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const responseData = await response.json();
+    console.log('Training response:', responseData);
+    // Handle the response as needed
+  } catch (error) {
+    console.error('Error:', error);
+    // Handle errors
+  }
+});
 
         // Function to handle form submission
         function handleSubmitForm(formId, url) {
@@ -96,7 +133,7 @@
          WebChat.default.init({
             selector: "#rasa-chat-widget",
             initPayload: "/get_started",  // Initial payload for the Rasa chatbot
-            socketUrl: "http://localhost:5005",
+            socketUrl: "http://0.0.0.0:5005",
             customData: { "language": "en" },  // Customize as needed
 
         });

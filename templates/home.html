@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rasa Chatbot Training Data Upload</title>
+    <link rel="stylesheet" type="text/css" href="./static/style.css">
+</head>
+<body>
+   <div class="wrapper">
+        <div class="container">
+
+        <form id="upload-form" enctype="multipart/form-data">
+            <span class="nb">1</span>
+            <h2> Import Training Data :</h2>
+            <label for="nlu_file">NLU File:</label>
+            <input type="file" id="nlu_file" name="files[]" accept=".csv">
+            <label for="stories_file">Stories File:</label>
+            <input type="file" id="stories_file" name="files[]" accept=".csv">
+            <label for="rules_file">Rules File:</label>
+            <input type="file" id="rules_file" name="files[]" accept=".csv">
+            <label for="responses_file">Responses File:</label>
+            <input type="file" id="responses_file" name="files[]" accept=".csv">
+            <label for="expiration_time">Session Expiration Time:</label>
+            <input type="number" id="expiration_time" name="expiration_time" required>
+            <button type="submit" class="btns" >Upload</button>
+
+        </form>
+
+
+        <form id="train-model-form">
+            <span class="nb">3</span>
+
+            <h2> Train Rasa Model :</h2>
+            <button type="submit" class="btns">Train Model</button>
+        </form>
+        <form id="reload-model-form">
+            <span class="nb">3</span>
+
+            <h2> Reload Rasa Model :</h2>
+            <button type="submit" class="btns">Reload Model</button>
+        </form>
+
+            <div id="rasa-chat-widget" data-websocket-url="http://localhost:5005"></div>
+        <script src="https://unpkg.com/@rasahq/rasa-chat" type="application/javascript"></script>
+
+
+   </div>
+
+
+
+        <div id="response">
+        </div>
+        <div id="loader">
+        <div class="jumping-dots-loader"> <span></span> <span></span> <span></span> </div>
+            <div class="moving-gradient"></div>
+
+        </div>
+    </div>
+
+    <script>
+
+          let loader = document.getElementById("loader")
+
+        // Function to handle form submission
+        function handleSubmitForm(formId, url) {
+
+            const form = document.getElementById(formId);
+
+            form.addEventListener("submit", function(event) {
+                event.preventDefault();
+                // Prevent default form submission
+                    if(formId !="upload-form"){
+                    loader.style.display = "block";
+
+            }
+
+                // Send form data using AJAX
+                const formData = new FormData(form);
+                fetch(url, {
+                    method: "POST",
+                    body: formData,
+                })
+                .then(response => response.json())
+                .then(data => {
+                if(formId !="upload-form" && data){
+                    loader.style.display = "none";
+                }
+                    console.log("Server response:", data);
+                    // Handle the response as needed
+                    // Update the response element with the received response
+                const responseElement = document.getElementById("response");
+
+                const p = document.createElement('p');
+                p.textContent = "✅ "+data.message;
+                responseElement.appendChild(p);
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    // Handle errors
+                });
+            });
+        }
+
+        // Call the function for each form
+
+        handleSubmitForm("upload-form", "/upload");
+        handleSubmitForm("train-model-form", "/train");
+        handleSubmitForm("reload-model-form", "/reload");
+
+
+         WebChat.default.init({
+            selector: "#rasa-chat-widget",
+            initPayload: "/get_started",  // Initial payload for the Rasa chatbot
+            socketUrl: "http://localhost:5005",
+            customData: { "language": "en" },  // Customize as needed
+
+        });
+
+
+
+    </script>
+</body>
+</html>
