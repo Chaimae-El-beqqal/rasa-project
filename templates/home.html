@@ -19,24 +19,27 @@
             <input type="file" id="rules_file" name="files[]" accept=".csv">
             <label for="responses_file">Responses File:</label>
             <input type="file" id="responses_file" name="files[]" accept=".csv">
-            <label for="expiration_time">Session Expiration Time:</label>
-            <input type="number" id="expiration_time" name="expiration_time" required>
-            <button type="submit" class="btns" >Upload</button>
+
+            <button type="submit" class="btns" data-value="new" id="new"> Upload new data </button>
+            <button type="submit" class="btns" id="add" data-value="exist">Add to existing data </button>
 
         </form>
 
 
         <form id="train-model-form">
-            <span class="nb">3</span>
+            <span class="nb">2</span>
 
             <h2> Train Rasa Model :</h2>
-            <button type="submit" class="btns">Train Model</button>
+            <p>Every time you import new data, you should retrain your model</p>
+            <button type="submit" class="btns" id="train">Train Model</button>
         </form>
         <form id="reload-model-form">
             <span class="nb">3</span>
 
             <h2> Reload Rasa Model :</h2>
-            <button type="submit" class="btns">Reload Model</button>
+            <p>After training, it's necessary to load the model so you can interact with the new chatbot.</p>
+
+            <button type="submit" class="btns" id="reload">Reload Model</button>
         </form>
 
             <div id="rasa-chat-widget" data-websocket-url="http://localhost:5005"></div>
@@ -66,8 +69,13 @@
             const form = document.getElementById(formId);
 
             form.addEventListener("submit", function(event) {
+
+             console.log(event.submitter.id)
+                 // ========= get the btn id :
+                 const btnId = event.submitter.id
                 event.preventDefault();
-                // Prevent default form submission
+
+                // =========  Prevent default form submission
                     if(formId !="upload-form"){
                     loader.style.display = "block";
 
@@ -75,14 +83,22 @@
 
                 // Send form data using AJAX
                 const formData = new FormData(form);
+
                 fetch(url, {
                     method: "POST",
+                     headers: {
+                        "Custom-Info": btnId,
+                      },
                     body: formData,
                 })
                 .then(response => response.json())
                 .then(data => {
                 if(formId !="upload-form" && data){
                     loader.style.display = "none";
+                }
+                if(formId =="upload-form"){
+
+                     this.reset()
                 }
                     console.log("Server response:", data);
                     // Handle the response as needed

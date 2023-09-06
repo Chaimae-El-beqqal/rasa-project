@@ -1,0 +1,185 @@
+assistant_id: default_config_bot
+language: "fr"  
+
+pipeline:
+  - name: WhitespaceTokenizer
+  - name: RegexFeaturizer
+  - name: LexicalSyntacticFeaturizer
+  - name: CountVectorsFeaturizer
+  - name: CountVectorsFeaturizer
+    analyzer: "char_wb"
+    min_ngram: 1
+    max_ngram: 4
+  - name: DIETClassifier
+    epochs: 100
+  - name: EntitySynonymMapper
+  - name: ResponseSelector
+    epochs: 100
+  - name: ResponseSelector
+    epochs: 100
+
+
+policies:
+- name: MemoizationPolicy
+- name: TEDPolicy
+  max_history: 5
+  epochs: 10
+- name: RulePolicy
+
+intents:
+- represente
+- sujet
+- affirm
+- bye
+- merci
+- demande_sol
+- faq
+- chitchat
+- consultation
+- detail
+- utile
+# INTENTS DATA PLACEHOLDER
+
+
+responses:
+  utter_greet:
+  - text: "Bonjour ,je suis  un Serial Entrepreneur pour vous aider a Élever votre parcours de collecte de fonds"
+    buttons: 
+    - title: "merci"
+      payload: "/merci"
+    - title: "bye"
+      payload: "/bye"
+  utter_recapitule:
+  - text: "donc vous voulez une stratégie personnalisée pour élever vos efforts de collecte de fonds"
+  utter_resoudre:
+  - text: "je propose du mentorat des alliances stratégiques et un accompagnement continu pour garantir que votre start-up non seulement obtient des fonds, mais prospère également à long terme"
+  utter_bye:
+  - text: "au revoir"
+    image: "https://hips.hearstapps.com/hmg-prod/images/happy-smiley-face-balloons-against-colorful-cotton-royalty-free-image-1677446093.jpg?crop=0.668xw:1.00xh;0,0&resize=1200:*"
+  utter_faq/qst_period:
+  - text: "La durée dépendra de plusieurs facteurs, tels que vos objectifs, votre plan d'exécution, et votre évaluation des résultats."
+  utter_faq/qst_fond:
+  - text: "En tant qu'expert, je vais vous aider à obtenir des fonds en évaluant d'abord vos besoins financiers, en identifiant des sources de financement appropriées, et en vous guidant à travers le processus de demande"
+    buttons: 
+    - title: "utile"
+      payload: "/utile"
+    - title: "plus de détail"
+      payload: "/detail"
+  utter_chitchat/greet:
+  - text: "Bonjour ,je suis  un Serial Entrepreneur"
+    image: "https://www.digitalmarketing.org/hs-fs/hubfs/shutterstock_1420845491.jpg?width=2500&name=shutterstock_1420845491.jpg"
+  utter_chitchat/represente:
+  - text: "Je suis là pour vous aider à améliorer votre parcours de collecte de fonds en tant que Serial Entrepreneur."
+  utter_chitchat/bye:
+  - text: "au revoir"
+  utter_detail:
+  - text: "je propose du mentorat des alliances stratégiques et un accompagnement continu pour garantir que votre start-up non seulement obtient des fonds, mais prospère également à long terme"
+  utter_utile:
+  - text: "parfait 👌🏻!"
+# DOMAIN DATA PLACEHOLDER
+
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
+
+nlu:
+- intent: represente
+  examples: |
+    - je me présente
+    - je suis 
+- intent: sujet
+  examples: |
+    - J'ai du mal à obtenir des fonds 
+    - je veux une approche efficace pour obtenir des fonds
+- intent: affirm
+  examples: |
+    - exactement
+    - oui c'est ça
+    - oui bien compris
+- intent: bye
+  examples: |
+    - à la prochaine
+    -  au revoire
+- intent: merci
+  examples: |
+    - merci
+    -  c'est très utile
+- intent: demande_sol
+  examples: |
+    - proposez moi une solution !
+    -  donnez moi une solution
+- intent: faq/qst_period
+  examples: |
+    - Combien de temps dure cette procédure ?
+- intent: faq/qst_fond
+  examples: |
+    - Que dois-je faire pour obtenir des fonds ?
+- intent: chitchat/greet
+  examples: |
+    - bonjour
+    - salam
+    - salam alikom
+- intent: chitchat/represente
+  examples: |
+    - Parlez-moi de votre accord le plus réussi
+- intent: chitchat/bye
+  examples: |
+    - au revoir 
+- intent: chitchat/satisfait
+  examples: |
+    - extraordinaire
+- intent: chitchat/mécontent  
+  examples: |
+    - c'est dommage
+- intent: consultation
+  examples: |
+    - je veux faire une consultation
+- intent: detail
+  examples: |
+    - je veux plus de détail
+- intent: utile
+  examples: |
+    - c'est bon
+# NLU DATA PLACEHOLDER
+
+
+stories:
+- story: poser le sujet de consultation
+  steps:
+  - intent: sujet
+  - action: utter_recapitule
+  - intent: affirm
+- story: propose solution
+  steps:
+  - intent: demande_sol
+  - action: utter_resoudre
+  - intent: affirm
+- story: cloture
+  steps:
+  - intent: merci
+  - action: utter_bye
+  - intent: bye
+# STORIES DATA PLACEHOLDER
+
+
+rules:
+- rule: repondre au faq
+  steps:
+  - intent: faq
+  - action: utter_faq
+- rule: repondre au chichat
+  steps:
+  - intent: chitchat
+  - action: utter_chitchat
+- rule: demande de detail
+  steps:
+  - intent: detail
+  - action: utter_detail
+- rule: utile
+  steps:
+  - intent: utile
+  - action: utter_utile
+# RULES DATA PLACEHOLDER
+
+

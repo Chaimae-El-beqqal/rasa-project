@@ -27,8 +27,17 @@ form{
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   border-radius:10px;
   padding:20px;
-  height:max-content
+  height:max-content;
+  width:300px;
   }
+ form p{
+
+   font-size: 1.rem;
+   line-height: 1.4rem;
+   margin-top:0px
+ }
+ h2{
+   margin-bottom:10px;}
 .btns{
     width:270px;
     padding:10px;
@@ -40,6 +49,9 @@ form{
   font-weight:550;
   cursor:pointer
 
+    }
+    #add{
+    background-color:#9ebbff
     }
 input {
   margin-bottom: 10px ;
