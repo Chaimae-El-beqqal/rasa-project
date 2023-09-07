@@ -1,5 +1,5 @@
 assistant_id: default_config_bot
-language: "fr"  
+language: "fr"
 
 pipeline:
   - name: WhitespaceTokenizer
@@ -27,6 +27,10 @@ policies:
 - name: RulePolicy
 
 intents:
+- chitchat
+- consultation
+- detail
+- utile
 - represente
 - sujet
 - affirm
@@ -34,11 +38,8 @@ intents:
 - merci
 - demande_sol
 - faq
-- chitchat
-- consultation
-- detail
-- utile
 # INTENTS DATA PLACEHOLDER
+
 
 
 responses:
@@ -84,6 +85,21 @@ session_config:
   carry_over_slots_to_new_session: true
 
 nlu:
+- intent: chitchat/satisfait
+  examples: |
+    - extraordinaire
+- intent: chitchat/mécontent  
+  examples: |
+    - c'est dommage
+- intent: consultation
+  examples: |
+    - je veux faire une consultation
+- intent: detail
+  examples: |
+    - je veux plus de détail
+- intent: utile
+  examples: |
+    - c'est bon
 - intent: represente
   examples: |
     - je me présente
@@ -126,21 +142,6 @@ nlu:
 - intent: chitchat/bye
   examples: |
     - au revoir 
-- intent: chitchat/satisfait
-  examples: |
-    - extraordinaire
-- intent: chitchat/mécontent  
-  examples: |
-    - c'est dommage
-- intent: consultation
-  examples: |
-    - je veux faire une consultation
-- intent: detail
-  examples: |
-    - je veux plus de détail
-- intent: utile
-  examples: |
-    - c'est bon
 # NLU DATA PLACEHOLDER
 
 

@@ -83,7 +83,7 @@
 
                 // Send form data using AJAX
                 const formData = new FormData(form);
-
+                let i =0
                 fetch(url, {
                     method: "POST",
                      headers: {
@@ -91,7 +91,9 @@
                       },
                     body: formData,
                 })
-                .then(response => response.json())
+                .then(response => {
+                    console.log(i+10)
+                   return response.json()})
                 .then(data => {
                 if(formId !="upload-form" && data){
                     loader.style.display = "none";
@@ -100,6 +102,7 @@
 
                      this.reset()
                 }
+                    console.log(i+10+"   END")
                     console.log("Server response:", data);
                     // Handle the response as needed
                     // Update the response element with the received response

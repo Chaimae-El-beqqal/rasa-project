@@ -1,0 +1,4 @@
+﻿story,steps
+poser le sujet de consultation,sujet;utter_recapitule;affirm
+propose solution,demande_sol;utter_resoudre;affirm
+cloture,merci;utter_bye;bye
