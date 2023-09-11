@@ -1,5 +1,5 @@
 ﻿rule,steps
 repondre au faq,faq;utter_faq
-repondre au chichat,chitchat;utter_chitchat
-demande de detail,detail;utter_detail
+chitchat,chitchat;utter_chitchat
+donner des details,detail;utter_detail
 utile,utile;utter_utile

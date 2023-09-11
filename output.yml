@@ -27,19 +27,14 @@ policies:
 - name: RulePolicy
 
 intents:
-- chitchat
-- consultation
-- detail
-- utile
 - represente
 - sujet
 - affirm
 - bye
-- merci
 - demande_sol
 - faq
+- chitchat
 # INTENTS DATA PLACEHOLDER
-
 
 
 responses:
@@ -79,27 +74,11 @@ responses:
   - text: "parfait 👌🏻!"
 # DOMAIN DATA PLACEHOLDER
 
-
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
 
 nlu:
-- intent: chitchat/satisfait
-  examples: |
-    - extraordinaire
-- intent: chitchat/mécontent  
-  examples: |
-    - c'est dommage
-- intent: consultation
-  examples: |
-    - je veux faire une consultation
-- intent: detail
-  examples: |
-    - je veux plus de détail
-- intent: utile
-  examples: |
-    - c'est bon
 - intent: represente
   examples: |
     - je me présente
@@ -117,10 +96,6 @@ nlu:
   examples: |
     - à la prochaine
     -  au revoire
-- intent: merci
-  examples: |
-    - merci
-    -  c'est très utile
 - intent: demande_sol
   examples: |
     - proposez moi une solution !
@@ -145,35 +120,16 @@ nlu:
 # NLU DATA PLACEHOLDER
 
 
-stories:
-- story: poser le sujet de consultation
-  steps:
-  - intent: sujet
-  - action: utter_recapitule
-  - intent: affirm
-- story: propose solution
-  steps:
-  - intent: demande_sol
-  - action: utter_resoudre
-  - intent: affirm
-- story: cloture
-  steps:
-  - intent: merci
-  - action: utter_bye
-  - intent: bye
-# STORIES DATA PLACEHOLDER
-
-
 rules:
 - rule: repondre au faq
   steps:
   - intent: faq
   - action: utter_faq
-- rule: repondre au chichat
+- rule: chitchat
   steps:
   - intent: chitchat
   - action: utter_chitchat
-- rule: demande de detail
+- rule: donner des details
   steps:
   - intent: detail
   - action: utter_detail
@@ -182,5 +138,4 @@ rules:
   - intent: utile
   - action: utter_utile
 # RULES DATA PLACEHOLDER
-
 

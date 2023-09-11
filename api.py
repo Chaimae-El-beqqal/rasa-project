@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, jsonify, Response
 import os
-
+import pyclamd as cd
 from flask_cors import CORS
 
 from data_preprocessing.data_preprocessing import generate_rasa_training_data, append_uploaded_data_to_existing_file
@@ -18,11 +18,15 @@ RASA_API_URL = config('RASA_API_URL')  # Rasa API URL
 model_path = config('model_path')
 data_folder = config('data_folder')
 output_yaml_path = config('output_yaml_path')
-
+max_data_size = config('MAX_SIZE')
+ALLOWED_EXTENSIONS = {'csv'}
+MAX_FILE_SIZE_BYTES = 500 * 1024  # 0.5MB
 
 @app.route('/')
 def index():
     return render_template('home.html')
+
+
 
 # === upload the data files : NLU , STORIES , RULES ===================
 @app.route('/upload', methods=['POST'])
@@ -35,11 +39,21 @@ def upload():
         os.makedirs('uploads')
 
     for file, filename in zip(uploaded_files, filenames):
-        file.save(os.path.join('uploads', filename))
+        if file and allowed_file(file.filename):
+
+            if len(file.read()) <= MAX_FILE_SIZE_BYTES:
+                file.seek(0)  # Reset the file pointer to the beginning
+                file.save(os.path.join('uploads', filename))
+            else:
+                return jsonify({"error": f"File size for {filename} exceeds the maximum allowed (500KB)."}), 400
+        else:
+            return jsonify({"error": f"Invalid file format for {filename}. Only CSV files are allowed."}), 400
+
     if type == "new":
         generate_rasa_training_data(60, output_yaml_path)
     elif type == "add":
         append_uploaded_data_to_existing_file(60, output_yaml_path)
+
     with open('output.yml', 'r', encoding='utf-8') as yaml_file:
         yaml_data = yaml_file.read()
         # print(yaml_data)
@@ -60,6 +74,10 @@ def train():
 @app.route('/reload', methods=['POST'])
 def reload():
     return send_reload_request_to_rasa()
+
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
 if __name__ == '__main__':

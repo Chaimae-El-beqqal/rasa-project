@@ -3,10 +3,12 @@ represente,je me présente;je suis
 sujet,J'ai du mal à obtenir des fonds ;je veux une approche efficace pour obtenir des fonds
 affirm,exactement;oui c'est ça;oui bien compris
 bye,à la prochaine; au revoire
-merci,merci; c'est très utile
+merci,
 demande_sol,proposez moi une solution !; donnez moi une solution
 faq/qst_period,Combien de temps dure cette procédure ?
 faq/qst_fond,Que dois-je faire pour obtenir des fonds ?
 chitchat/greet,bonjour;salam;salam alikom
 chitchat/represente,Parlez-moi de votre accord le plus réussi
 chitchat/bye,au revoir 
+chitchat/bye,au revoir 
+chitchat/greet,bonjour;salam;salam alikom

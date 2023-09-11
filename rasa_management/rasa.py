@@ -1,10 +1,17 @@
 # rasa_management/rasa_management.py
+import os
+
 import requests
 from flask import jsonify
 
 
-def send_yaml():
+def send_yaml(max_data_size):
     try:
+        # Check the size of the output YAML file
+        yaml_file_size = os.path.getsize('output.yml')
+
+        if yaml_file_size > max_data_size:
+            return jsonify({"error": "File size exceeds 1MB, please check your training data"}), 400
         url = 'http://localhost:5005/model/train?save_to_default_model_directory=true&force_training=false&augmentation=50&num_threads=1&token'  # API endpoint
         headers = {
             'Content-Type': 'application/x-yaml'  # content type
