@@ -5,7 +5,7 @@ import pandas as pd
 def validate_columns(df, required_columns):
     if not set(required_columns).issubset(df.columns):
         missing_columns = list(set(required_columns) - set(df.columns))
-        return f'Missing columns: {missing_columns}'
+        return missing_columns
     return None
 
 
@@ -26,10 +26,9 @@ def data_preprocessing(df,df_name):
 
             # Get the index of rows with missing values
             missing_values_index =  df[df.isnull().any(axis=1)].index.values.tolist()
-            # # Handle missing values by either removing them
+            # # Handle missing values by  removing them
             df.dropna(inplace=True)
-        # print(f"Type inisde: {type(df)}")
-        # print(f"Type of df after reading CSV dropna: {type(df)}")
+
     # Check for duplicate rows
     if df.duplicated().any():
         # Get the index of rows with duplicate values

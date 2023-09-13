@@ -3,6 +3,9 @@
 <head>
     <title>Rasa Chatbot Training Data Upload</title>
     <link rel="stylesheet" type="text/css" href="./static/style.css">
+<!--    <link rel="stylesheet" type="text/css" href="loading-bar.css"/>-->
+     <!-- Include SweetAlert CSS and JavaScript -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.7/dist/sweetalert2.min.css">
 </head>
 <body>
    <div class="wrapper">
@@ -11,17 +14,36 @@
         <form id="upload-form" enctype="multipart/form-data">
             <span class="nb">1</span>
             <h2> Import Training Data :</h2>
-            <label for="nlu_file">NLU File:</label>
-            <input type="file" id="nlu_file" name="files[]" accept=".csv">
-            <label for="stories_file">Stories File:</label>
-            <input type="file" id="stories_file" name="files[]" accept=".csv">
-            <label for="rules_file">Rules File:</label>
-            <input type="file" id="rules_file" name="files[]" accept=".csv">
-            <label for="responses_file">Responses File:</label>
-            <input type="file" id="responses_file" name="files[]" accept=".csv">
 
-            <button type="submit" class="btns" data-value="new" id="new"> Upload new data </button>
-            <button type="submit" class="btns" id="add" data-value="exist">Add to existing data </button>
+
+         <div class="row">
+             <div class="col">
+                  <label for="nlu_file">NLU File:</label>
+            <input type="file" id="nlu_file" name="files[]" accept=".csv">
+             </div>
+               <div class="col">
+                  <label for="stories_file">Stories File:</label>
+            <input type="file" id="stories_file" name="files[]" accept=".csv">
+             </div>
+
+
+         </div>
+              <div class="row">
+                      <div class="col">
+                  <label for="rules_file">Rules File:</label>
+            <input type="file" id="rules_file" name="files[]" accept=".csv">
+             </div>
+               <div class="col">
+                 <label for="responses_file">Responses File:</label>
+            <input type="file" id="responses_file" name="files[]" accept=".csv">
+              </div>
+             </div>
+
+
+              <div class="row"><button type="submit" class="btns" data-value="new" id="new"> Upload new data </button>
+                  <span>OR</span>
+            <button type="submit" class="btns" id="add" data-value="exist">Add to existing data </button></div>
+
 
         </form>
 
@@ -49,93 +71,36 @@
    </div>
 
 
+       <div class="alerts">
 
-        <div id="response">
-        </div>
-        <div id="loader">
-        <div class="jumping-dots-loader"> <span></span> <span></span> <span></span> </div>
-            <div class="moving-gradient"></div>
 
+            <div class="alert" id="response">
         </div>
+       <div class="alert" id="warning">
+        </div>
+       <div class="alert" id="error">
+        </div>
+        <div id="progress">
+
+            <div class="progress-bar">
+                  <div class="progress-fill1">
+
+                  </div>
+                </div>
+            <p id="progr"></p>
+        </div>
+           <div id="loader">
+             <h1>Loading...</h1>
+                <div class="progress-bar">
+                  <div class="progress-fill"></div>
+                </div>
+        </div>
+       </div>
+
     </div>
-
-    <script>
-
-          let loader = document.getElementById("loader")
-
-        // Function to handle form submission
-        function handleSubmitForm(formId, url) {
-
-            const form = document.getElementById(formId);
-
-            form.addEventListener("submit", function(event) {
-
-             console.log(event.submitter.id)
-                 // ========= get the btn id :
-                 const btnId = event.submitter.id
-                event.preventDefault();
-
-                // =========  Prevent default form submission
-                    if(formId !="upload-form"){
-                    loader.style.display = "block";
-
-            }
-
-                // Send form data using AJAX
-                const formData = new FormData(form);
-                let i =0
-                fetch(url, {
-                    method: "POST",
-                     headers: {
-                        "Custom-Info": btnId,
-                      },
-                    body: formData,
-                })
-                .then(response => {
-                    console.log(i+10)
-                   return response.json()})
-                .then(data => {
-                if(formId !="upload-form" && data){
-                    loader.style.display = "none";
-                }
-                if(formId =="upload-form"){
-
-                     this.reset()
-                }
-                    console.log(i+10+"   END")
-                    console.log("Server response:", data);
-                    // Handle the response as needed
-                    // Update the response element with the received response
-                const responseElement = document.getElementById("response");
-
-                const p = document.createElement('p');
-                p.textContent = "✅ "+data.message;
-                responseElement.appendChild(p);
-                })
-                .catch(error => {
-                    console.error("Error:", error);
-                    // Handle errors
-                });
-            });
-        }
-
-        // Call the function for each form
-
-        handleSubmitForm("upload-form", "/upload");
-        handleSubmitForm("train-model-form", "/train");
-        handleSubmitForm("reload-model-form", "/reload");
-
-
-         WebChat.default.init({
-            selector: "#rasa-chat-widget",
-            initPayload: "/get_started",  // Initial payload for the Rasa chatbot
-            socketUrl: "http://localhost:5005",
-            customData: { "language": "en" },  // Customize as needed
-
-        });
-
-
-
+<!--   <script type="text/javascript" src="loading-bar.js"></script>-->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.7/dist/sweetalert2.all.min.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}">
     </script>
 </body>
 </html>

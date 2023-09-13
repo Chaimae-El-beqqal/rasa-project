@@ -12,13 +12,18 @@ body{
 }
 
 .wrapper{
-margin: 100px 120px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+     margin: 100px 80px;
     padding:30px auto;
+
 }
 .container{
     display:flex;
 
-    justify-content: space-between
+    justify-content: space-around;
+    margin-bottom:30px;
 }
 form{
   display:flex;
@@ -28,7 +33,23 @@ form{
   border-radius:10px;
   padding:20px;
   height:max-content;
-  width:300px;
+  width:max-content;
+  }
+  #train-model-form,#reload-model-form{
+
+     width:270px
+  }
+  .row{
+  display:flex;
+  justify-content: space-around;
+  align-content: center
+
+  }
+    .col{
+  display:flex;
+  flex-direction:column;
+
+
   }
  form p{
 
@@ -39,7 +60,7 @@ form{
  h2{
    margin-bottom:10px;}
 .btns{
-    width:270px;
+    width:220px;
     padding:10px;
     font-size:1rem;
     margin:5px auto;
@@ -51,12 +72,12 @@ form{
 
     }
     #add{
-    background-color:#9ebbff
+    background-color:#7fdadf
     }
 input {
   margin-bottom: 10px ;
-  width:250px;
-  font-size:.9rem;
+  width:200px;
+  font-size:.8rem;
   padding:10px;
   border:none;
   background-color:#f7f7f7;
@@ -83,7 +104,11 @@ input::file-selector-button {
 input::file-selector-button::focus, button::focus{
 
 }
-
+span{
+   font-weight:700;
+   text-align:center;
+   margin:auto 10px;
+}
 
 .nb{
    background-color: #96b7ff;
@@ -112,78 +137,130 @@ input::file-selector-button::focus, button::focus{
  border-radius: 5px;}
 
 
-#loader{
-   display: none;
+
+li {
+   font-size:1rem;
+   font-weight:400;
+}
+.alert {
+
+
+  width: 400px;
+  height: max-content;
+  padding: 10px;
+  margin: 10px;
+  font-size:1rem;
+
+  border-radius: 5px;
+  cursor: hand;
+  cursor: pointer;
+  font-family: sans-serif;
+  font-weight: 400;
+
 }
 
- .loader-demo-box {
-  border-radius: 0.25rem !important;
+
+#response {
+  display:none;
+  background-color: #a8ff9e;
+  border: 1px solid #DED;
+  color: #33c91c;
 }
 
-.loader-demo-box {
-  width: 100%;
-  height: 200px;
+
+#warning {
+display:none;
+  background-color: #FDF7DF;
+  border: 1px solid #FEEC6F;
+  color: #C9971C;
 }
 
-.jumping-dots-loader {
-  width: 100px;
-  height: 100px;
-  border-radius: 100%;
-  position: relative;
-  margin: 0 auto;
+#error {
+display:none;
+  background-color: #FEE;
+  border: 1px solid #EDD;
+  color: #A66;
 }
+.alerts{
+   margin: 10px auto ;
+    align-self: center;
 
-.jumping-dots-loader span {
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  border-radius: 100%;
-  background-color: #3db8ff;
-  margin: 35px 5px;
 }
-
-.jumping-dots-loader span:nth-child(1) {
-  animation: bounce 1s ease-in-out infinite;
+#progress{
+display:none;
+justify-self:center
 }
+#loader {
+    display:none;
 
-.jumping-dots-loader span:nth-child(2) {
-  animation: bounce 1s ease-in-out 0.33s infinite;
+   justify-self:center;
+
 }
-
-.jumping-dots-loader span:nth-child(3) {
-  animation: bounce 1s ease-in-out 0.66s infinite;
+#progress p{
+   text-align: center
 }
+h1 {
+  text-align: center;
 
-@keyframes bounce {
-  0%,
-  75%,
-  100% {
-    -webkit-transform: translateY(0);
-    -ms-transform: translateY(0);
-    -o-transform: translateY(0);
-    transform: translateY(0);
-  }
+  font-weight: 100;
+  margin: 10px auto;
+  font-size: 22px;
 
-  25% {
-    -webkit-transform: translateY(-20px);
-    -ms-transform: translateY(-20px);
-    -o-transform: translateY(-20px);
-    transform: translateY(-20px);
-  }
-}
-
-.progress-container {
-    width: 300px;
-    height: 20px;
-    background-color: #ddd;
-    border-radius: 10px;
-    overflow: hidden;
 }
 
 .progress-bar {
-    width: 0;
-    height: 100%;
-    background-color: #4caf50;
-    border-radius: 10px;
-    transition: width 1s linear;
+  position: relative;
+  height: 20px;
+  width: 200px;
+  background: white;
+  border-radius: 25px;
+  border: 2px solid white;
+  background-color: blue);
+    box-shadow: 0 0 32px blue;
+    margin:10px auto
 }
+
+.progress-fill {
+  position: absolute;
+  height: 20px;
+  width: 0%;
+  animation: progress-forward 3s infinite;
+  background: rgb(34, 193, 195);
+  background: linear-gradient(
+    90deg,
+    rgba(34, 193, 195, 1) 0%,
+    rgba(45, 63, 253, 1) 100%
+  );
+  border-radius: 15px;
+}
+.progress-fill1 {
+  position: absolute;
+  height: 20px;
+  width: 0%;
+
+  background: rgb(34, 193, 195);
+  background: linear-gradient(
+    90deg,
+    rgba(34, 193, 195, 1) 0%,
+    rgba(45, 63, 253, 1) 100%
+  );
+  border-radius: 15px;
+}
+@keyframes progress-forward {
+  0% {
+    width: 0%;
+  }
+  25% {
+    width: 50%;
+  }
+  50% {
+    width: 75%;
+  }
+  75% {
+    width: 85%;
+  }
+  100% {
+    width: 100%;
+  }
+} ;
+

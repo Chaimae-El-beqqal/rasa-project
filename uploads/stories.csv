@@ -1,4 +1,4 @@
-﻿storyo,steps
+﻿story,steps
 poser le sujet de consultation,sujet;utter_recapitule;affirm
 ,demande_sol;utter_resoudre;affirm
 cloture,merci;utter_bye;bye

@@ -119,6 +119,18 @@ nlu:
     - au revoir 
 # NLU DATA PLACEHOLDER
 
+stories:
+- story: poser le sujet de consultation
+  steps:
+  - intent: sujet
+  - action: utter_recapitule
+  - intent: affirm
+- story: cloture
+  steps:
+  - intent: merci
+  - action: utter_bye
+  - intent: bye
+# STORIES DATA PLACEHOLDER
 
 rules:
 - rule: repondre au faq

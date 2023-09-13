@@ -84,6 +84,7 @@ def generate_rules(df, op_type):
 def generate_intents_names(nlu_intents,op_type):
 
     intents = ""
+
     if op_type == 'new':
         intents = "intents:\n"
     elif op_type == 'add':
@@ -91,6 +92,7 @@ def generate_intents_names(nlu_intents,op_type):
 
     for intent in nlu_intents:
         intents += f"- {intent}\n"
+
     intents += "# INTENTS DATA PLACEHOLDER\n"
     return  intents
 def generate_responses(df,op_type):
