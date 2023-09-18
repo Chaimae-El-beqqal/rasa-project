@@ -1,10 +1,9 @@
-from flask import Flask, render_template, request, jsonify, Response
+from flask import Flask, render_template, request, jsonify
 import os
-import pyclamd as cd
 from flask_cors import CORS
 
-from data_preprocessing.data_preprocessing import generate_rasa_training_data, append_uploaded_data_to_existing_file
-from rasa_management.rasa import send_yaml, send_reload_request_to_rasa
+from services.data_management.data_preprocessing import generate_rasa_training_data, append_uploaded_data_to_existing_file
+from services.rasa_management.rasa import send_yaml, send_reload_request_to_rasa
 from decouple import config
 
 app = Flask(__name__)

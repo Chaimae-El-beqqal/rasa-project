@@ -89,6 +89,11 @@ function handleSubmitForm(formId, url) {
           const p = document.createElement("p");
           p.textContent = data.success;
           responseElement.appendChild(p);
+          // Add a click event listener to the response div
+            responseElement.addEventListener("click", function () {
+                // Toggle the visibility of the response div
+                responseElement.style.display = "none"; // or "block" to show it again
+            });
           Swal.fire('Success!', data.success, 'success');
           // Clear the upload form if it's successful
           if (formId === "upload-form") {
@@ -142,6 +147,12 @@ function handleSubmitForm(formId, url) {
           // Display warnings
           if (ul.childElementCount > 0) {
             warning.appendChild(ul);
+            // Add a click event listener to the response div
+            warning.addEventListener("click", function () {
+                // Toggle the visibility of the response div
+                warning.style.display = "none"; // or "block" to show it again
+            });
+
           }
         }else if(!data.warning){
         warning.style.display ="none"
@@ -164,6 +175,12 @@ function handleSubmitForm(formId, url) {
           const p2 = document.createElement("p");
           p2.textContent = "🚨 " + msg;
           errorElt.appendChild(p2);
+          // Add a click event listener to the response div
+            errorElt.addEventListener("click", function () {
+                // Toggle the visibility of the response div
+                errorElt.style.display = "none"; // or "block" to show it again
+            });
+
           Swal.fire('Error!', msg, 'error');
         }else{
                  errorElt.style.display ="none"
